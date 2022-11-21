@@ -24,16 +24,24 @@
       transform: rotate(360deg);
     }
   }
+  .loading-box {
+    position: absolute;
+    top: 50px;
+    left: 10%;
+    height: 100px;
+    width: 100px;
+    border: 3px solid rgba(186, 72, 72, .3);
+  }
   .circle {
-    position: fixed;
+    position: absolute;
     top: 50%;
-    left: 20%;
-    height: 60px;
-    width: 60px;
+    left: 50%;
+    height: 30px;
+    width: 30px;
     box-sizing: border-box;
-    margin-left: -30px;
-    margin-top: -30px;
-    border: 2px solid rgb(232, 137, 12);
+    margin-left: -15px;
+    margin-top: -15px;
+    border: 2px solid rgba(48, 47, 46, .7);
     border-top: 2px solid transparent;
     border-radius: 50%;
     animation: circle 1s infinite linear;
@@ -135,11 +143,73 @@
     border-radius: 30px;
     background-color: rgb(243, 143, 36);
     filter: blur(25px);
-    box-shadow: 0px 30px 50px 40px rgb(243, 143, 36);
+    box-shadow: 0px 10px 40px 40px rgb(243, 143, 36);
+  }
+
+  .process {
+    position: absolute;
+    top: 100px;
+    left: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 380px;
+  }
+  .process-bar {
+    height: 10px;
+    width: 340px;
+    border-radius: 5px;
+    background-color: rgba(53, 51, 54, 0.5);
+  }
+  .filler {
+    position: absolute;
+    height: 10px;
+    width: 0px;
+    border-radius: 5px;
+    background-color: rgba(36, 240, 25, 0.5);
+    transition: width .6s ease-in-out;
+  }
+  .btn {
+    flex:1;
+    margin-left: 10px;
+  }
+
+  .fade {
+    height: 100px;
+    width: 200px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    position: absolute;
+    top: 200px;
+    left: 130px;
+  }
+  .fade-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 5px;
+  }
+  .fade-box {
+    height: 50px;
+    width: 180px;
+    background-color: rgba(23, 86, 221, 0.7);
+    margin-left: 10px;
+    margin-top: 10px;
+    opacity: 1;
+    transition: opacity .5s ease-in-out;
   }
 </style>
 <body>
+  <div class="loading-box">
+    <h2 style="font-size:12px">LOADING...</h2>
   <div class="circle"></div>
+  <div class="process">
+    <div class="process-bar">
+      <div id="processBar" class="filler"></div>
+    </div>
+    <button class="btn" id="btn">rondom refresh</button>
+  </div>
+  </div>
     <ul class="btns">
       <li class="icon">😀</li>
       <li class="icon">😂</li>
@@ -160,5 +230,45 @@
         </div>
       </div>
     </div>
+    <div class="fade">
+      <div class="fade-header">
+        <h4>fade in and out</h4>
+        <button id="fadeBtn">click me</button>
+      </div>
+      <div class="fade-box" id="fadeBox"></div>
+    </div>
 </body>
+<script>
+  window.onload = function() {
+    const btn = document.getElementById('btn')
+    const processBar = document.getElementById('processBar')
+
+    const fadeBtn = document.getElementById('fadeBtn')
+    const fadeBox = document.getElementById('fadeBox')
+
+    function changeProcess(num = 0) {
+      if (typeof num !== 'number' || !processBar) return
+      if (num < 0 || num > 340) return
+
+      processBar.style.width = num + 'px'
+    }
+    
+    changeProcess(170)
+
+    btn.addEventListener('click', function() {
+      const randomProcee = Math.random() * 340
+      changeProcess(randomProcee)
+    })
+    fadeBtn.addEventListener('click', function() {
+      const a = parseInt(fadeBox.style.opacity)
+      console.log(a);
+      if ( ![0, 1].includes(a)) {
+        // 初次渲染属性
+        fadeBox.style.opacity = '0'
+      } else {
+        fadeBox.style.opacity = a === 1 ? '0' : '1'
+      }
+    })
+  }
+</script>
 </html>
