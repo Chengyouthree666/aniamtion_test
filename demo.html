@@ -208,6 +208,18 @@
     opacity: 1;
     transition: opacity .5s ease-in-out;
   }
+  .colorful-text {
+      display: inline-block;
+  text-align: center;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right,
+      rgb(93, 8, 130),
+      rgb(238, 6, 91),
+    );
+  font-weight: 700;
+  }
 </style>
 <body>
   <div class="loading-box">
@@ -247,6 +259,7 @@
       </div>
       <div class="fade-box" id="fadeBox"></div>
     </div>
+  <h3 class="colorful-text">chengyouthree</h3>
 </body>
 <script>
   window.onload = function() {
